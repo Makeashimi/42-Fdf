@@ -6,11 +6,11 @@
 /*   By: jcharloi <jcharloi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/04 17:22:27 by jcharloi          #+#    #+#             */
-/*   Updated: 2017/02/08 12:13:03 by jcharloi         ###   ########.fr       */
+/*   Updated: 2017/02/11 18:39:14 by jcharloi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../Get_Next_Line/get_next_line/get_next_line.h"
+#include "get_next_line.h"
 
 int		read_buffer(int fd, char **result)
 {
