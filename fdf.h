@@ -6,7 +6,7 @@
 /*   By: jcharloi <jcharloi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/21 13:15:00 by jcharloi          #+#    #+#             */
-/*   Updated: 2017/02/11 18:05:29 by jcharloi         ###   ########.fr       */
+/*   Updated: 2017/02/11 19:30:15 by jcharloi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ typedef struct	s_env
 	int		xend;
 	int		yend;
 	int		**map;
-	int		h;
-	int		z;
-	int		d;
-	int		w;
+	int		depth;
+	int		zoom;
+	int		height;
+	int		width;
 	t_color	color;
 }				t_env;
 
@@ -79,6 +79,8 @@ void			drawsegmentseven(t_pos pos1, t_pos pos2, t_env *env);
 void			linkdots(t_env *env);
 void			space(t_env *env, t_pos pos, t_pos pos2);
 int				exposehook(void *param);
+int				keyevent(int keycode, void *param);
+int				destroywindow(t_env *env);
 void			usecolor(t_env *env, char *str);
 
 #endif

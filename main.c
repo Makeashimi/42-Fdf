@@ -6,49 +6,11 @@
 /*   By: jcharloi <jcharloi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 15:13:34 by jcharloi          #+#    #+#             */
-/*   Updated: 2017/02/11 18:00:23 by jcharloi         ###   ########.fr       */
+/*   Updated: 2017/02/11 19:28:50 by jcharloi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-int		keyevent2(int keycode, t_env *env)
-{
-	if (keycode == 126)
-		env->d = env->d - 10;
-	if (keycode == 125)
-		env->d = env->d + 10;
-	if (keycode == 124)
-		env->w = env->w + 10;
-	if (keycode == 123)
-		env->w = env->w - 10;
-	exposehook(env);
-	return (0);
-}
-
-int		keyevent(int keycode, void *param)
-{
-	t_env	*env;
-
-	env = (t_env*)param;
-	if (keycode == 53)
-	{
-		mlx_destroy_image(env->mlx, env->img);
-		mlx_destroy_window(env->mlx, env->win);
-		exit(0);
-	}
-	if (keycode == 69)
-		env->h++;
-	if (keycode == 78)
-		env->h--;
-	if (keycode == 35)
-		env->z++;
-	if (keycode == 37)
-		env->z--;
-	keyevent2(keycode, env);
-	exposehook(env);
-	return (0);
-}
 
 /*
 ** IMG(10,10) = 10 * 10 = 100 = 100 * 32 = 3200 / 8 = 400;
@@ -86,12 +48,13 @@ int		initwindow(t_env env, char **argv)
 	env.img = mlx_new_image(env.mlx, WIDTH, HEIGHT);
 	env.data = mlx_get_data_addr(env.img, &(env.bits), &(env.size),
 	&(env.endian));
-	env.d = HEIGHT / 3;
-	env.w = WIDTH / 2;
-	env.z = 20;
-	env.h = 0;
+	env.height = HEIGHT / 3;
+	env.width = WIDTH / 2;
+	env.zoom = 20;
+	env.depth = 0;
 	mlx_expose_hook(env.win, exposehook, &env);
 	mlx_key_hook(env.win, keyevent, &env);
+	mlx_hook(env.win, 17, 0, destroywindow, &env);
 	mlx_loop(env.mlx);
 	return (0);
 }

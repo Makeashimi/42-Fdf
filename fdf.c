@@ -28,12 +28,12 @@ void		space(t_env *env, t_pos pos, t_pos pos2)
 	a.y = pos.y + pos.x;
 	b.x = pos2.x - pos2.y;
 	b.y = pos2.y + pos2.x;
-	z = env->map[pos.y][pos.x] * env->h * env->z / 19;
-	z2 = env->map[pos2.y][pos2.x] * env->h * env->z / 19;
-	a.y = (a.y * env->z) / 2 - z + env->d;
-	b.y = (b.y * env->z) / 2 - z2 + env->d;
-	a.x = a.x * env->z + env->w;
-	b.x = b.x * env->z + env->w;
+	z = env->map[pos.y][pos.x] * env->depth * env->zoom / 19;
+	z2 = env->map[pos2.y][pos2.x] * env->depth * env->zoom / 19;
+	a.y = (a.y * env->zoom) / 2 - z + env->height;
+	b.y = (b.y * env->zoom) / 2 - z2 + env->height;
+	a.x = a.x * env->zoom + env->width;
+	b.x = b.x * env->zoom + env->width;
 	drawsegment(a, b, env);
 }
 
