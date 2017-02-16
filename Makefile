@@ -6,7 +6,7 @@
 #    By: jcharloi <jcharloi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/08 10:41:14 by jcharloi          #+#    #+#              #
-#    Updated: 2017/02/11 19:26:50 by jcharloi         ###   ########.fr        #
+#    Updated: 2017/02/16 16:28:59 by jcharloi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C libft/
+	make -C minilibx_macos/
 	$(CC) -o $(NAME) $^ $(CFLAGS) libft/libft.a -L ./minilibx_macos -lmlx -framework OpenGL -framework Appkit
 
 %.o:%.c $(DEP)
@@ -45,6 +46,7 @@ clean:
 
 fclean: clean
 	make fclean -C libft/
+	make clean -C minilibx_macos/
 	rm -f $(NAME)
 
 re: clean fclean all
