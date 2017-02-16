@@ -6,7 +6,7 @@
 /*   By: jcharloi <jcharloi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 15:13:34 by jcharloi          #+#    #+#             */
-/*   Updated: 2017/02/11 19:28:50 by jcharloi         ###   ########.fr       */
+/*   Updated: 2017/02/16 14:20:18 by jcharloi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		initwindow(t_env env, char **argv)
 	env.width = WIDTH / 2;
 	env.zoom = 20;
 	env.depth = 0;
+	env.variable = 0;
 	mlx_expose_hook(env.win, exposehook, &env);
 	mlx_key_hook(env.win, keyevent, &env);
 	mlx_hook(env.win, 17, 0, destroywindow, &env);

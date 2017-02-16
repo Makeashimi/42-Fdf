@@ -6,18 +6,38 @@
 /*   By: jcharloi <jcharloi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 12:01:35 by jcharloi          #+#    #+#             */
-/*   Updated: 2017/02/11 17:44:02 by jcharloi         ###   ########.fr       */
+/*   Updated: 2017/02/16 14:24:44 by jcharloi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 /*
-** env->d = distancebetweendots;
-** env->h = heightdots;
+** env->zoom = distancebetweendots;
+** env->depth = heightdots;
 */
 
-void		space(t_env *env, t_pos pos, t_pos pos2)
+void		parallel(t_env *env, t_pos pos, t_pos pos2)
+{
+	t_pos	a;
+	t_pos	b;
+	int		z;
+	int		z2;
+
+	a.x = pos.x - pos.y;
+	a.y = pos.y;
+	b.x = pos2.x - pos2.y;
+	b.y = pos2.y;
+	z = env->map[pos.y][pos.x] * env->depth * env->zoom / 19;
+	z2 = env->map[pos2.y][pos2.x] * env->depth * env->zoom / 19;
+	a.y = (a.y * env->zoom) - z + env->height;
+	b.y = (b.y * env->zoom) - z2 + env->height;
+	a.x = a.x * env->zoom - z + env->width;
+	b.x = b.x * env->zoom - z2 + env->width;
+	drawsegment(a, b, env);
+}
+
+void		isometric(t_env *env, t_pos pos, t_pos pos2)
 {
 	t_pos	a;
 	t_pos	b;
@@ -40,29 +60,28 @@ void		space(t_env *env, t_pos pos, t_pos pos2)
 void		linkdots(t_env *env)
 {
 	t_pos	pos;
-	t_pos	pos2;
 
-	pos.y = 0;
-	while (pos.y < env->yend)
+	pos.y = -1;
+	while (++pos.y < env->yend)
 	{
-		pos.x = 0;
-		while (pos.x < env->xend)
+		pos.x = -1;
+		while (++pos.x < env->xend)
 		{
 			if (pos.x + 1 < env->xend)
 			{
-				pos2.x = pos.x + 1;
-				pos2.y = pos.y;
-				space(env, pos, pos2);
+				if (env->variable == 1)
+					parallel(env, pos, (t_pos){pos.x + 1, pos.y});
+				else
+					isometric(env, pos, (t_pos){pos.x + 1, pos.y});
 			}
 			if (pos.y + 1 < env->yend)
 			{
-				pos2.x = pos.x;
-				pos2.y = pos.y + 1;
-				space(env, pos, pos2);
+				if (env->variable == 1)
+					parallel(env, pos, (t_pos){pos.x, pos.y + 1});
+				else
+					isometric(env, pos, (t_pos){pos.x, pos.y + 1});
 			}
-			pos.x++;
 		}
-		pos.y++;
 	}
 }
 

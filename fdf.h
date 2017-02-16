@@ -6,7 +6,7 @@
 /*   By: jcharloi <jcharloi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/21 13:15:00 by jcharloi          #+#    #+#             */
-/*   Updated: 2017/02/11 19:30:15 by jcharloi         ###   ########.fr       */
+/*   Updated: 2017/02/16 14:08:50 by jcharloi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct	s_env
 	int		zoom;
 	int		height;
 	int		width;
+	int		variable;
 	t_color	color;
 }				t_env;
 

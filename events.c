@@ -6,7 +6,7 @@
 /*   By: jcharloi <jcharloi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 19:23:44 by jcharloi          #+#    #+#             */
-/*   Updated: 2017/02/11 19:30:22 by jcharloi         ###   ########.fr       */
+/*   Updated: 2017/02/16 14:25:17 by jcharloi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ int				destroywindow(t_env *env)
 	return (0);
 }
 
+static int		keyevent3(int keycode, t_env *env)
+{
+	if (keycode == 75)
+		env->variable = 1;
+	if (keycode == 67)
+		env->variable = 0;
+	exposehook(env);
+	return (0);
+}
+
 static int		keyevent2(int keycode, t_env *env)
 {
 	if (keycode == 126)
@@ -30,6 +40,7 @@ static int		keyevent2(int keycode, t_env *env)
 		env->width = env->width + 10;
 	if (keycode == 123)
 		env->width = env->width - 10;
+	keyevent3(keycode, env);
 	exposehook(env);
 	return (0);
 }

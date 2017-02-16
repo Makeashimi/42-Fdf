@@ -6,7 +6,7 @@
 /*   By: jcharloi <jcharloi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/28 17:06:41 by jcharloi          #+#    #+#             */
-/*   Updated: 2017/02/10 16:32:37 by jcharloi         ###   ########.fr       */
+/*   Updated: 2017/02/16 16:18:42 by jcharloi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ int		mallocmap(t_env *env)
 
 	i = 0;
 	if (!(env->map = (int**)malloc(sizeof(int*) * env->yend)))
-		return (0);
+		exit(-1);
 	while (i < env->yend)
 	{
 		if (!(env->map[i] = (int*)malloc(sizeof(int) * env->xend)))
-			return (0);
+			exit(-1);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 int		calculationmap(t_env *env, char *str)
@@ -47,30 +47,29 @@ int		calculationmap(t_env *env, char *str)
 		if (xbegin > env->xend)
 			env->xend = xbegin;
 	}
-	return (0);
+	return (1);
 }
 
 int		createmap2(t_env *env, char **tab, int ybegin)
 {
 	int xbegin;
 	int i;
-	int o;
 
 	i = 0;
 	xbegin = 0;
-	o = xbegin;
-	while (o <= env->xend)
+	while (xbegin <= env->xend)
 	{
-		env->map[ybegin][o] = 0;
-		o++;
+		env->map[ybegin][xbegin] = 0;
+		xbegin++;
 	}
+	xbegin = 0;
 	while (tab[i] != NULL && xbegin < env->xend)
 	{
 		env->map[ybegin][xbegin] = ft_atoi(tab[i]);
 		xbegin++;
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 int		createmap(t_env *env, char **argv)
@@ -85,12 +84,14 @@ int		createmap(t_env *env, char **argv)
 	while (get_next_line(fd, &str) == 1 && ybegin < env->yend)
 	{
 		tab = ft_strsplit(str, ' ');
+		if (tab == NULL)
+			exit(-1);
 		createmap2(env, tab, ybegin);
 		ybegin++;
 		ft_memdel((void**)&str);
+		ft_tabdel((void***)&tab);
 	}
-	ft_memdel((void**)tab);
-	return (0);
+	return (1);
 }
 
 int		read_argv(t_env *env, char **argv)
