@@ -6,7 +6,7 @@
 #    By: jcharloi <jcharloi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/08 10:41:14 by jcharloi          #+#    #+#              #
-#    Updated: 2017/02/16 16:28:59 by jcharloi         ###   ########.fr        #
+#    Updated: 2017/02/21 16:00:14 by jcharloi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,15 +28,17 @@ SRC = main.c \
 
 OBJ = $(SRC:.c=.o)
 
+MLX = ./mlxE3
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C libft/
-	make -C minilibx_macos/
-	$(CC) -o $(NAME) $^ $(CFLAGS) libft/libft.a -L ./minilibx_macos -lmlx -framework OpenGL -framework Appkit
+	make -C $(MLX)
+	$(CC) -o $(NAME) $^ $(CFLAGS) libft/libft.a -L $(MLX) -lmlx -framework OpenGL -framework Appkit
 
 %.o:%.c $(DEP)
-	$(CC) -o $@ -c $< $(CFLAGS)
+	$(CC) -o $@ -c -I$(MLX) $< $(CFLAGS)
 
 .PHONY: clean fclean re norme
 
@@ -46,7 +48,7 @@ clean:
 
 fclean: clean
 	make fclean -C libft/
-	make clean -C minilibx_macos/
+	make clean -C $(MLX)
 	rm -f $(NAME)
 
 re: clean fclean all

@@ -6,7 +6,7 @@
 /*   By: jcharloi <jcharloi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/21 13:15:00 by jcharloi          #+#    #+#             */
-/*   Updated: 2017/02/16 14:08:50 by jcharloi         ###   ########.fr       */
+/*   Updated: 2017/02/22 13:13:25 by jcharloi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define GRAY "\033[38;5;247m"
 # define PERU "\033[38;5;130m"
 
-# include "./minilibx_macos/mlx.h"
+# include "./mlxE3/mlx.h"
 # include "libft/libft.h"
 # include <fcntl.h>
 
@@ -60,13 +60,8 @@ typedef	struct	s_pos
 	int		y;
 }				t_pos;
 
-int				read_argv(t_env *env, char **argv);
-int				checkfile(char *str);
+int				read_argv(t_env *env, int fd, char **argv);
 void			drawsegment(t_pos pos1, t_pos pos2, t_env *env);
-int				calculationmap(t_env *env, char *str);
-int				mallocmap(t_env *env);
-int				createmap(t_env *env, char **argv);
-int				createmap2(t_env *env, char **tab, int ybegin);
 int				ft_abs(int nb);
 void			write_image(t_env *env, int x, int y, int color);
 void			drawsegmentzero(t_pos pos1, t_pos pos2, t_env *env);
@@ -78,7 +73,6 @@ void			drawsegmentfive(t_pos pos1, t_pos pos2, t_env *env);
 void			drawsegmentsix(t_pos pos1, t_pos pos2, t_env *env);
 void			drawsegmentseven(t_pos pos1, t_pos pos2, t_env *env);
 void			linkdots(t_env *env);
-void			space(t_env *env, t_pos pos, t_pos pos2);
 int				exposehook(void *param);
 int				keyevent(int keycode, void *param);
 int				destroywindow(t_env *env);

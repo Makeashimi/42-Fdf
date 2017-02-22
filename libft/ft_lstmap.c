@@ -6,7 +6,7 @@
 /*   By: jcharloi <jcharloi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/03 16:47:02 by jcharloi          #+#    #+#             */
-/*   Updated: 2016/12/05 13:26:49 by jcharloi         ###   ########.fr       */
+/*   Updated: 2017/02/16 16:48:52 by jcharloi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 	t_list	*suite;
 	t_list	*fraiche;
 
+	fraiche = NULL;
 	if (lst)
 	{
 		suite = (*f)(lst);

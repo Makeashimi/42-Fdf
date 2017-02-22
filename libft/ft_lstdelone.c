@@ -6,7 +6,7 @@
 /*   By: jcharloi <jcharloi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/03 15:59:38 by jcharloi          #+#    #+#             */
-/*   Updated: 2016/12/05 13:27:20 by jcharloi         ###   ########.fr       */
+/*   Updated: 2017/02/16 17:03:15 by jcharloi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	ft_lstdelone(t_list **alst, void (*del)(void*, size_t))
 {
-	if (alst)
+	if (!alst)
+		return ;
+	if (*alst)
 	{
 		(*del)((*alst)->content, (*alst)->content_size);
 		free(*alst);

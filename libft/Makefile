@@ -6,11 +6,12 @@
 #    By: jcharloi <jcharloi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/11 16:15:21 by jcharloi          #+#    #+#              #
-#    Updated: 2017/02/08 12:28:37 by jcharloi         ###   ########.fr        #
+#    Updated: 2017/02/17 16:35:28 by jcharloi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
+
 CFLAGS = -Wall -Werror -Wextra
 
 NAME = libft.a

@@ -6,7 +6,7 @@
 /*   By: jcharloi <jcharloi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 12:36:26 by jcharloi          #+#    #+#             */
-/*   Updated: 2017/02/11 18:01:03 by jcharloi         ###   ########.fr       */
+/*   Updated: 2017/02/21 12:30:41 by jcharloi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		usecolor(t_env *env, char *str)
 
 	i = 0;
 	ft_putchar('\n');
-	ft_putstr("Choices of colors for your octants :\n");
+	ft_putstr("You can choose one of these colors :\n");
 	ft_putchar('\n');
 	ft_putstr("1) "YELLOW"LightYellow"EOC" = 0xFFFFE0\n\
 2) "ORANGE"LightOrange"EOC" = 0xFFA800\n\

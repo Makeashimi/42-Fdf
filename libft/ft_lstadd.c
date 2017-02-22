@@ -6,7 +6,7 @@
 /*   By: jcharloi <jcharloi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 14:13:00 by jcharloi          #+#    #+#             */
-/*   Updated: 2016/12/05 13:27:49 by jcharloi         ###   ########.fr       */
+/*   Updated: 2017/02/16 17:01:55 by jcharloi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void	ft_lstadd(t_list **alst, t_list *l_new)
 {
 	t_list	*l_start;
 
-	if (alst)
+	if (!alst)
+		return ;
+	if (*alst)
 	{
 		l_start = *alst;
 		*alst = l_new;

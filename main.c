@@ -6,7 +6,7 @@
 /*   By: jcharloi <jcharloi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 15:13:34 by jcharloi          #+#    #+#             */
-/*   Updated: 2017/02/16 14:20:18 by jcharloi         ###   ########.fr       */
+/*   Updated: 2017/02/22 12:56:06 by jcharloi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,22 @@
 ** env.color.oct[7] = 0x7868E8;
 */
 
-int		exposehook(void *param)
+static void	callcolor(t_env *env)
+{
+	char	*str;
+
+	ft_putstr("Do you want to color your octants before ? Yes/No\n");
+	if (get_next_line(0, &str) == 1)
+	{
+		if (ft_strncmp(str, "Yes", 3) == 0 || ft_strncmp(str, "y", 1) == 0)
+		{
+			ft_memdel((void**)&str);
+			usecolor(env, str);
+		}
+	}
+}
+
+int			exposehook(void *param)
 {
 	t_env	*env;
 
@@ -36,34 +51,35 @@ int		exposehook(void *param)
 	ft_bzero(env->data, WIDTH * HEIGHT * env->bits / 8);
 	linkdots(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
-	return (0);
+	return (1);
 }
 
-int		initwindow(t_env env, char **argv)
+static int	initwindow(t_env *env)
 {
-	if (read_argv(&env, argv) == 1)
-		return (0);
-	env.mlx = mlx_init();
-	env.win = mlx_new_window(env.mlx, WIDTH, HEIGHT, "fdf");
-	env.img = mlx_new_image(env.mlx, WIDTH, HEIGHT);
-	env.data = mlx_get_data_addr(env.img, &(env.bits), &(env.size),
-	&(env.endian));
-	env.height = HEIGHT / 3;
-	env.width = WIDTH / 2;
-	env.zoom = 20;
-	env.depth = 0;
-	env.variable = 0;
-	mlx_expose_hook(env.win, exposehook, &env);
-	mlx_key_hook(env.win, keyevent, &env);
-	mlx_hook(env.win, 17, 0, destroywindow, &env);
-	mlx_loop(env.mlx);
+	if (!(env->mlx = mlx_init()))
+		exit(-1);
+	if (!(env->win = mlx_new_window(env->mlx, WIDTH, HEIGHT, "fdf")))
+		exit(-1);
+	if (!(env->img = mlx_new_image(env->mlx, WIDTH, HEIGHT)))
+		exit(-1);
+	env->data = mlx_get_data_addr(env->img, &(env->bits), &(env->size),
+	&(env->endian));
+	env->height = HEIGHT / 3;
+	env->width = WIDTH / 2;
+	env->zoom = 20;
+	env->depth = 0;
+	env->variable = 0;
+	mlx_expose_hook(env->win, exposehook, env);
+	mlx_key_hook(env->win, keyevent, env);
+	mlx_hook(env->win, 17, 1L << 17, destroywindow, env);
+	mlx_loop(env->mlx);
 	return (0);
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_env	env;
-	char	*str;
+	int		fd;
 
 	env.color = (t_color){{0xFF8C00, 0xABC8E2, 0xA8ACA8, 0xFFFFE0,
 					0x609CA0, 0x20B4A8, 0xFF0000, 0x7868E8}};
@@ -72,18 +88,14 @@ int		main(int argc, char **argv)
 		ft_putstr("Usage : ./fdf Name_of_the_file\n");
 		return (0);
 	}
-	else
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1 || read_argv(&env, fd, argv) == 1)
 	{
-		ft_putstr("Do you want to color your octants before ? Yes/No\n");
-		if (get_next_line(0, &str) == 1)
-		{
-			if (ft_strncmp(str, "Yes", 3) == 0 || ft_strncmp(str, "y", 1) == 0)
-			{
-				ft_memdel((void**)&str);
-				usecolor(&env, str);
-			}
-		}
+		ft_putstr("File not valid, can't create the map.\n");
+		return (1);
 	}
-	initwindow(env, argv);
+	else
+		callcolor(&env);
+	initwindow(&env);
 	return (0);
 }
